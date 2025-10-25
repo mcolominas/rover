@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.6",
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
@@ -40,8 +41,9 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
             "@php artisan migrate --force",
-            "npm install",
-            "npm run build"
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:models -RW",
+            "@php artisan ide-helper:meta"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
@@ -56,7 +58,9 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
