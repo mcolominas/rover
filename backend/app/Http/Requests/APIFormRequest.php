@@ -14,7 +14,7 @@ abstract class APIFormRequest extends FormRequest
 
         throw new HttpResponseException(response()->json([
             'error' => 1000,
-            'message' => $validator->getMessageBag()->first(),
+            'message' => 'Validation error.',
             'errors' => $errors
         ], 422));
     }

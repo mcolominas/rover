@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Contracts\PlanetServiceInterface;
 use App\Contracts\ObstacleGeneratorInterface;
+use App\Exceptions\ObstacleAttemptException;
+use App\Exceptions\ObstacleLimitExceededException;
 use App\Models\Planet;
 use Illuminate\Support\Facades\DB;
 
@@ -24,6 +26,8 @@ class PlanetService implements PlanetServiceInterface
      * @param int $minObstacles
      * @param int $maxObstacles
      * @return Planet
+     * @throws ObstacleLimitExceededException
+     * @throws ObstacleAttemptException
      */
     public function createPlanet(int $width, int $height, int $minObstacles, int $maxObstacles): Planet
     {

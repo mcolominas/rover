@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ObstacleAttemptException;
+use App\Exceptions\ObstacleLimitExceededException;
 use App\Http\Requests\StorePlanetRequest;
 use App\Http\Resources\PlanetResource;
 use App\Services\PlanetService;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
-use Throwable;
 
-class PlanetController extends JsonController
+class PlanetController extends APIController
 {
     public function __construct(protected PlanetService $planetService) {}
 
@@ -20,7 +21,8 @@ class PlanetController extends JsonController
      * @param StorePlanetRequest $request
      * @return JsonResponse
      * @throws BindingResolutionException
-     * @throws Throwable
+     * @throws ObstacleLimitExceededException
+     * @throws ObstacleAttemptException
      */
     public function store(StorePlanetRequest $request): JsonResponse
     {

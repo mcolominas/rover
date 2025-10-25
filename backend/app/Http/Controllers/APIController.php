@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
-abstract class JsonController extends Controller
+abstract class APIController extends Controller
 {
     /**
      * Send a JSON response.

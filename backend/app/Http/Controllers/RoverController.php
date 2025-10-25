@@ -21,7 +21,7 @@ use ValueError;
 use TypeError;
 
 
-class RoverController extends JsonController
+class RoverController extends APIController
 {
     public function __construct(protected RoverService $roverService) {}
 

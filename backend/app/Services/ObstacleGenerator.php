@@ -6,7 +6,6 @@ use App\Contracts\ObstacleGeneratorInterface;
 use App\Models\Planet;
 use App\Exceptions\ObstacleAttemptException;
 use App\Exceptions\ObstacleLimitExceededException;
-use Illuminate\Database\Eloquent\MassAssignmentException;
 
 class ObstacleGenerator implements ObstacleGeneratorInterface
 {
@@ -20,7 +19,6 @@ class ObstacleGenerator implements ObstacleGeneratorInterface
      * @return void
      * @throws ObstacleLimitExceededException
      * @throws ObstacleAttemptException
-     * @throws MassAssignmentException
      */
     public function generate(Planet $planet, int $min, int $max): void
     {
