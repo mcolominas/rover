@@ -32,18 +32,12 @@ If any of the required extensions are missing, enable them in your php.ini file.
 ---
 
 ## ⚙️ Installation Steps
-1. **Clone the repository**
-    ```shell
-    git clone https://github.com/mcolominas/rover.git
-    cd ./backend
-    ```
-
-2. **Run the automated setup script**
+**Run the automated setup script**
 The project includes a Composer script that performs all the initial setup steps automatically.
 Run the following command:
-    ```shell
-    composer run setup
-    ```
+```shell
+composer run setup
+```
 
 ---
 
