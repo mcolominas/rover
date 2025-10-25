@@ -22,7 +22,7 @@ Ensure the following PHP extensions are enabled:
 - bcmath
 
 > 🧠 Check your PHP extensions with:
-    ```sh
+    ```
     php -m
     ```
 
