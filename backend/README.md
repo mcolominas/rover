@@ -1,61 +1,258 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Mars Rover API (Backend)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🚀 Requirements
 
-## About Laravel
+Make sure the following dependencies are installed on your system before setting up the project:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🧩 Core Requirements
+- **PHP** ≥ 8.2  
+- **Composer** ≥ 2.x
+- **Git**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🧱 PHP Extensions
+Ensure the following PHP extensions are enabled:
+- pdo
+- sqlite3
+- pdo_sqlite
+- openssl
+- mbstring
+- tokenizer
+- xml
+- ctype
+- json
+- bcmath
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> 🧠 You can check your PHP extensions by running:
+    ```
+    php -m
+    ```
 
-## Learning Laravel
+If any of the required extensions are missing, enable them in your php.ini file.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## ⚙️ Installation Steps
+1. **Clone the repository**
+    ```shell
+    git clone https://github.com/mcolominas/rover.git
+    cd ./backend
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Run the automated setup script**
+The project includes a Composer script that performs all the initial setup steps automatically.
+Run the following command:
+    ```shell
+    composer run setup
+    ```
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ▶️ Running the Application
+```shell
+php artisan serve
+```
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## ⚙️ Endpoints
 
-## Contributing
+### 1. Create a planet
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Route:** POST /planet
 
-## Code of Conduct
+**Description:**  
+Creates a new planet where rovers can be launched.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Parameters:**  
+No data is required in the request body.
 
-## Security Vulnerabilities
+**Successful Response (201):**
+```json
+{
+  "message": "Planet created successfully.",
+  "data": {
+    "id": 1,
+    "width": 5,
+    "height": 5
+  }
+}
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Possible Error Responses:**
 
-## License
+HTTP 409:
+```
+{
+  "error": 1003,
+  "message": "Too many attempts ({$attempts}) generating obstacles. Planet might be too small."
+}
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+HTTP 409:
+```
+{
+  "error": 1004,
+  "message": "Cannot generate more obstacles ({$max}) than available cells ({$totalCells})."
+}
+```
+
+---
+
+### 2. Launch a rover
+
+**Route:** POST /rovers/launch
+
+**Description:**  
+Launches a rover at an initial position within an existing planet.
+
+**Required Parameters:**
+```
+{
+  "planet_id": 1,
+  "x": 2,
+  "y": 3,
+  "direction": "N"
+}
+```
+
+**Successful Response (201):**
+```
+{
+  "message": "Rover launched successfully.",
+  "data": {
+    "id": 1,
+    "planet_id": 1,
+    "position": {
+      "x": 2,
+      "y": 3
+    },
+    "direction": "N"
+  }
+}
+```
+
+**Possible Error Responses:**
+
+HTTP 422:
+```
+{
+  "error": 1005,
+  "message": "A rover already exists on this planet."
+}
+```
+
+HTTP 422:
+```
+{
+  "error": 1001,
+  "message": "Invalid position for rover."
+}
+```
+
+HTTP 422:
+```
+{
+  "error": 1000,
+  "message": "Validation error.",
+  "errors": {
+    "x": ["The x field must be an integer greater than or equal to 0"],
+    "direction": ["The direction provided is not valid"]
+  }
+}
+```
+
+---
+
+### 3. Execute commands on a rover
+
+**Route:** POST /rovers/{rover}/commands
+
+**Description:**  
+Executes a sequence of commands on an existing rover.
+
+**Required Parameters:**
+```
+{
+  "commands": "FFF"
+}
+```
+
+**Successful Response (200):**
+```
+{
+  "message": "Commands executed successfully.",
+  "data": {
+    "position": {
+      "x": 3,
+      "y": 6
+    },
+    "direction": "N",
+    "path": [
+        {
+            "position": {"x": 2, "y": 4},
+            "direction": "N",
+            "movement": "F"
+        },
+        {
+            "position": {"x": 2, "y": 5},
+            "direction": "N",
+            "movement": "F"
+        },
+        {
+            "position": {"x": 3, "y": 6},
+            "direction": "N",
+            "movement": "F"
+        }
+    ]
+  }
+}
+```
+
+**Possible Error Responses:**
+
+HTTP 422:
+```
+{
+  "error": 1002,
+  "message": "Obstacle detected at position (3, 6).",
+  "coordinates": {"x":3,"y":6},
+  "path": [
+        {
+            "position": {"x": 2, "y": 4},
+            "direction": "N",
+            "movement": "F"
+        },
+        {
+            "position": {"x": 2, "y": 5},
+            "direction": "N",
+            "movement": "F"
+        }
+    ]
+}
+```
+
+HTTP 422:
+```
+{
+  "error": 1000,
+  "message": "Validation error.",
+  "errors": {
+    "commands": ["Commands can only contain F, L, R"]
+  }
+}
+```
+
+---
+
+## 🧪 Testing
+
+### Run Tests
+```
+php artisan test
+```
+
+### Types of Tests
+- **Feature Tests:** Verify main routes and HTTP responses.  
+- **Unit Tests:** Check internal logic, obstacle detection, and command execution.  
+
+All test responses use the defined JSON format to ensure consistency across the API.

@@ -1,44 +1,64 @@
-# frontend
+# 🖖 Vue.js 3 Project - Rover
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is built with **Vue.js 3** and **Vite**.  
 
-## Recommended IDE Setup
+---
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🧩 Prerequisites
 
-## Recommended Browser Setup
+Before starting, make sure you have installed:
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- 🌐 [Node.js](https://nodejs.org/) v16 or higher
+- 📦 npm (comes with Node.js)
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## ⚙️ Project Setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+This command will install all dependencies needed to run the project.
+
+---
+
+## 🚀 Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+This starts the development server with **hot-reload**, allowing you to see changes in real-time.  
+The app is usually available at 🌍 `http://localhost:5173` (Vite will choose another port if 5173 is in use).
+
+---
+
+## 🏗️ Compile and Minify for Production
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+This will generate an optimized version of your project ready for production in the `dist/` folder.
+
+---
+
+## 👀 Preview the Production Build
+
+```sh
+npm run preview
+```
+
+Allows you to preview the compiled production version locally before deploying.  
+The preview will be available at 🌍 `http://localhost:4173/`.
+
+---
+
+## 🔍 Lint with ESLint
 
 ```sh
 npm run lint
 ```
+
+Checks code quality and automatically fixes problems where possible. This ensures consistency across the project.
