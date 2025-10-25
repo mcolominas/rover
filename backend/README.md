@@ -7,7 +7,6 @@ Make sure the following dependencies are installed on your system before setting
 ### 🧩 Core Requirements
 - **PHP** ≥ 8.2  
 - **Composer** ≥ 2.x
-- **Git**
 
 ### 🧱 PHP Extensions
 Ensure the following PHP extensions are enabled:
@@ -22,33 +21,43 @@ Ensure the following PHP extensions are enabled:
 - json
 - bcmath
 
-> 🧠 You can check your PHP extensions by running:
-    ```
+> 🧠 Check your PHP extensions with:
+    ```sh
     php -m
     ```
 
-If any of the required extensions are missing, enable them in your php.ini file.
-
 ---
 
-## ⚙️ Installation Steps
+## ⚙️ Installation
+
 **Run the automated setup script**
-The project includes a Composer script that performs all the initial setup steps automatically.
-Run the following command:
-```shell
+```sh
 composer run setup
 ```
 
 ---
 
+## 🌍 Planet Environment Variables
+
+These variables exist in the `.env` file and can be adjusted for your project:
+
+```
+PLANET_WIDTH=20
+PLANET_HEIGHT=20
+PLANET_MIN_OBSTACLES=100
+PLANET_MAX_OBSTACLES=200
+```
+
+---
+
 ## ▶️ Running the Application
-```shell
+```sh
 php artisan serve
 ```
 
 ---
 
-## ⚙️ Endpoints
+## ⚙️ API Endpoints
 
 ### 1. Create a planet
 
@@ -75,7 +84,7 @@ No data is required in the request body.
 **Possible Error Responses:**
 
 HTTP 409:
-```
+```json
 {
   "error": 1003,
   "message": "Too many attempts ({$attempts}) generating obstacles. Planet might be too small."
@@ -83,7 +92,7 @@ HTTP 409:
 ```
 
 HTTP 409:
-```
+```json
 {
   "error": 1004,
   "message": "Cannot generate more obstacles ({$max}) than available cells ({$totalCells})."
@@ -100,7 +109,7 @@ HTTP 409:
 Launches a rover at an initial position within an existing planet.
 
 **Required Parameters:**
-```
+```json
 {
   "planet_id": 1,
   "x": 2,
@@ -110,7 +119,7 @@ Launches a rover at an initial position within an existing planet.
 ```
 
 **Successful Response (201):**
-```
+```json
 {
   "message": "Rover launched successfully.",
   "data": {
@@ -128,7 +137,7 @@ Launches a rover at an initial position within an existing planet.
 **Possible Error Responses:**
 
 HTTP 422:
-```
+```json
 {
   "error": 1005,
   "message": "A rover already exists on this planet."
@@ -136,7 +145,7 @@ HTTP 422:
 ```
 
 HTTP 422:
-```
+```json
 {
   "error": 1001,
   "message": "Invalid position for rover."
@@ -144,7 +153,7 @@ HTTP 422:
 ```
 
 HTTP 422:
-```
+```json
 {
   "error": 1000,
   "message": "Validation error.",
@@ -165,14 +174,14 @@ HTTP 422:
 Executes a sequence of commands on an existing rover.
 
 **Required Parameters:**
-```
+```json
 {
   "commands": "FFF"
 }
 ```
 
 **Successful Response (200):**
-```
+```json
 {
   "message": "Commands executed successfully.",
   "data": {
@@ -205,7 +214,7 @@ Executes a sequence of commands on an existing rover.
 **Possible Error Responses:**
 
 HTTP 422:
-```
+```json
 {
   "error": 1002,
   "message": "Obstacle detected at position (3, 6).",
@@ -226,7 +235,7 @@ HTTP 422:
 ```
 
 HTTP 422:
-```
+```json
 {
   "error": 1000,
   "message": "Validation error.",
@@ -241,7 +250,7 @@ HTTP 422:
 ## 🧪 Testing
 
 ### Run Tests
-```
+```sh
 php artisan test
 ```
 
@@ -249,4 +258,31 @@ php artisan test
 - **Feature Tests:** Verify main routes and HTTP responses.  
 - **Unit Tests:** Check internal logic, obstacle detection, and command execution.  
 
-All test responses use the defined JSON format to ensure consistency across the API.
+---
+
+## 🏭 Production Preparation
+
+1. **Run the automated setup**
+    ```sh
+    composer run setup
+    ```
+
+2. **Remove development dependencies**
+    ```sh
+    composer install --no-dev --optimize-autoloader
+    ```
+
+3. **Optimize the application**
+    ```sh
+    php artisan optimize
+    ```
+
+4. **Set up server and permissions**
+- Point Apache/Nginx to the `public/` folder.
+- Ensure `storage/` and `bootstrap/cache/` are writable.
+- Set correct permissions for `storage/logs/`.
+
+5. **Security**
+- Enable HTTPS.
+- Restrict access to sensitive files (`.env`, `storage`, etc.).
+- Configure firewall and request limits as needed.

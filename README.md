@@ -25,6 +25,7 @@ Start the backend server using Laravel:
 
 ```shell
 cd ./backend
+composer run setup
 php artisan serve
 ```
 
@@ -38,6 +39,8 @@ Start the frontend development server:
 
 ```shell
 cd ../frontend
+npm install
+npm run build
 npm run preview
 ```
 
