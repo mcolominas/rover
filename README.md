@@ -23,9 +23,9 @@ Ensure the following PHP extensions are enabled:
 - bcmath
 
 > 🧠 You can check your PHP extensions by running:
-```
-php -m
-```
+    ```
+    php -m
+    ```
 
 If any of the required extensions are missing, enable them in your php.ini file.
 
@@ -84,7 +84,7 @@ HTTP 409:
 ```
 {
   "error": 1003,
-  "message": "Failed to place an obstacle at the indicated position"
+  "message": "Too many attempts ({$attempts}) generating obstacles. Planet might be too small."
 }
 ```
 
@@ -92,7 +92,7 @@ HTTP 409:
 ```
 {
   "error": 1004,
-  "message": "Obstacle limit exceeded"
+  "message": "Cannot generate more obstacles ({$max}) than available cells ({$totalCells})."
 }
 ```
 
@@ -137,7 +137,7 @@ HTTP 422:
 ```
 {
   "error": 1005,
-  "message": "A rover already exists at the indicated position"
+  "message": "A rover already exists on this planet."
 }
 ```
 
@@ -145,7 +145,7 @@ HTTP 422:
 ```
 {
   "error": 1001,
-  "message": "The initial position is invalid"
+  "message": "Invalid position for rover."
 }
 ```
 
@@ -180,7 +180,7 @@ Executes a sequence of commands on an existing rover.
 **Successful Response (200):**
 ```
 {
-  "message": "Commands executed successfully",
+  "message": "Commands executed successfully.",
   "data": {
     "position": {
       "x": 3,
@@ -214,7 +214,7 @@ HTTP 422:
 ```
 {
   "error": 1002,
-  "message": "Obstacle detected during execution",
+  "message": "Obstacle detected at position (3, 6).",
   "coordinates": {"x":3,"y":6},
   "path": [
         {
