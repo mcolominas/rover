@@ -59,7 +59,7 @@ class RoverService implements RoverServiceInterface
     {
         $planet = $rover->planet;
 
-        return DB::transaction(function () use ($rover, $commands, $planet) {
+        try {
             $path = [];
 
             foreach (str_split(strtoupper($commands)) as $cmd) {
@@ -80,13 +80,16 @@ class RoverService implements RoverServiceInterface
             }
 
             $rover->save();
+        } catch (ObstacleDetectedException $th) {
+            $rover->save();
+            throw $th;
+        }
 
-            return [
-                'position' => ['x' => $rover->x, 'y' => $rover->y],
-                'direction' => $rover->direction->value,
-                'path' => $path
-            ];
-        });
+        return [
+            'position' => ['x' => $rover->x, 'y' => $rover->y],
+            'direction' => $rover->direction->value,
+            'path' => $path
+        ];
     }
 
     /**

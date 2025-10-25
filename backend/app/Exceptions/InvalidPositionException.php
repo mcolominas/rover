@@ -16,4 +16,8 @@ class InvalidPositionException extends APIException
     {
         return 1001;
     }
+
+    public function report()
+    {
+    }
 }

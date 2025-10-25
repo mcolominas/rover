@@ -16,4 +16,8 @@ class RoverAlreadyExistsException extends APIException
     {
         return 1005;
     }
+
+    public function report()
+    {
+    }
 }

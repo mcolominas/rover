@@ -52,4 +52,8 @@ class ObstacleDetectedException extends APIException
             'path' => $this->getPath(),
         ], 422);
     }
+
+    public function report()
+    {
+    }
 }
