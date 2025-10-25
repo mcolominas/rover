@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @property int $id
@@ -40,5 +41,16 @@ class Planet extends Model
     public function rover()
     {
         return $this->hasOne(Rover::class);
+    }
+
+    public function hasObstacle(int $x, int $y): bool
+    {
+        return Cache::remember("planet_{$this->id}_obstacle_{$x}_{$y}", 60, function () use ($x, $y) {
+            if ($this->relationLoaded('obstacles')) {
+                return $this->obstacles->contains(fn($ob) => $ob->x === $x && $ob->y === $y);
+            }
+
+            return $this->obstacles()->where('x', $x)->where('y', $y)->exists();
+        });
     }
 }

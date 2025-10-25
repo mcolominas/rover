@@ -57,4 +57,9 @@ enum Direction: string
             self::WEST  => [($x - 1 + $widthPlanet) % $widthPlanet, $y],
         };
     }
+
+    public static function values(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }
