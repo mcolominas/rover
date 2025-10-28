@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\PlanetServiceInterface;
 use App\Exceptions\ObstacleAttemptException;
 use App\Exceptions\ObstacleLimitExceededException;
 use App\Http\Requests\StorePlanetRequest;
 use App\Http\Resources\PlanetResource;
-use App\Services\PlanetService;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 
 class PlanetController extends APIController
 {
-    public function __construct(protected PlanetService $planetService) {}
+    public function __construct(protected PlanetServiceInterface $planetService) {}
 
 
     /**

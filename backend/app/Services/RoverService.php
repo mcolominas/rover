@@ -27,7 +27,7 @@ class RoverService implements RoverServiceInterface
      */
     public function launchRover(Planet $planet, int $x, int $y, Direction $direction): Rover
     {
-        if (isset($planet->rover) || $planet->rover()->exists()) {
+        if ($planet->relationLoaded('rover') && $planet->rover || $planet->rover()->exists()) {
             throw new RoverAlreadyExistsException();
         }
 

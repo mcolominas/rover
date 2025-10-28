@@ -6,6 +6,7 @@ use App\Contracts\ObstacleGeneratorInterface;
 use App\Models\Planet;
 use App\Exceptions\ObstacleAttemptException;
 use App\Exceptions\ObstacleLimitExceededException;
+use InvalidArgumentException;
 
 class ObstacleGenerator implements ObstacleGeneratorInterface
 {
@@ -18,7 +19,8 @@ class ObstacleGenerator implements ObstacleGeneratorInterface
      * @param int $max
      * @return void
      * @throws ObstacleLimitExceededException
-     * @throws ObstacleAttemptException
+     * @throws ObstacleLimitExceededException
+     * @throws InvalidArgumentException
      */
     public function generate(Planet $planet, int $min, int $max): void
     {
@@ -26,6 +28,10 @@ class ObstacleGenerator implements ObstacleGeneratorInterface
 
         if ($max >= $totalCells) {
             throw new ObstacleLimitExceededException($max, $totalCells);
+        }
+
+        if($min > $max){
+            throw new InvalidArgumentException('The minimum value cannot be greater than the maximum value.');
         }
 
         $obstaclesNumber = rand($min, $max);

@@ -60,6 +60,13 @@ class LaunchRoverRequest extends APIFormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'direction.in' => 'Direction may only contain N, E, S or W characters.',
+        ];
+    }
+
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {

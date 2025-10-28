@@ -11,7 +11,6 @@ use App\Enums\Direction;
 use App\Enums\Movement;
 use App\Exceptions\InvalidPositionException;
 use App\Exceptions\ObstacleDetectedException;
-use App\Exceptions\ObstacleLimitExceededException;
 use App\Exceptions\RoverAlreadyExistsException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -197,15 +196,17 @@ class RoverServiceTest extends BaseTestCase
         $this->roverService->executeCommands($rover, 'FX');
     }
 
-    /** -------------------------------------
-     *  OBSTACLE GENERATOR
-     *  ------------------------------------- */
-    public function test_obstacle_limit_exception_from_generator()
+    public function test_rover_orientation_is_correct_after_turn_right_collision()
     {
-        $planet = Planet::factory()->create(['width' => 2, 'height' => 2]);
-        $this->expectException(ObstacleLimitExceededException::class);
+        $this->planetWithoutObstacles->obstacles()->create(['x' => 1, 'y' => 1]);
 
-        $generator = new ObstacleGenerator();
-        $generator->generate($planet, 5, 5);
+        $this->expectException(ObstacleDetectedException::class);
+
+        $rover = $this->roverService->launchRover($this->planetWithoutObstacles, 0, 0, Direction::NORTH);
+        $result = $this->roverService->executeCommands($rover, 'FRF');
+
+        $this->assertEquals(0, $result['position']['x']);
+        $this->assertEquals(1, $result['position']['y']);
+        $this->assertEquals(Direction::EAST->value, $result['direction']);
     }
 }

@@ -8,6 +8,7 @@ use App\Services\ObstacleGenerator;
 use App\Exceptions\ObstacleLimitExceededException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use InvalidArgumentException;
 
 class PlanetServiceTest extends BaseTestCase
 {
@@ -65,5 +66,28 @@ class PlanetServiceTest extends BaseTestCase
     {
         $planet = $this->planetService->createPlanet(5, 5, 0, 0);
         $this->assertEquals(0, $planet->obstacles()->count());
+    }
+
+    /** -------------------------------------
+     *  OBSTACLE GENERATOR
+     *  ------------------------------------- */
+    public function test_obstacle_limit_exception_from_generator()
+    {
+        $planet = Planet::factory()->create(['width' => 2, 'height' => 2]);
+        $this->expectException(ObstacleLimitExceededException::class);
+
+        $generator = new ObstacleGenerator();
+        $generator->generate($planet, 5, 5);
+    }
+
+    public function test_it_throws_exception_when_min_is_greater_than_max()
+    {
+        $planet = Planet::factory()->create(['width' => 5, 'height' => 5]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The minimum value cannot be greater than the maximum value.');
+
+        $obstacleGenerator = new ObstacleGenerator();
+        $obstacleGenerator->generate($planet, 5, 2); // min > max
     }
 }

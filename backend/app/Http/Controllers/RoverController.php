@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\RoverServiceInterface;
 use App\Enums\Direction;
 use App\Exceptions\RoverAlreadyExistsException;
 use App\Exceptions\InvalidPositionException;
@@ -12,7 +13,6 @@ use App\Http\Resources\CommandResource;
 use App\Http\Resources\RoverResource;
 use App\Models\Planet;
 use App\Models\Rover;
-use App\Services\RoverService;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
@@ -23,7 +23,7 @@ use TypeError;
 
 class RoverController extends APIController
 {
-    public function __construct(protected RoverService $roverService) {}
+    public function __construct(protected RoverServiceInterface $roverService) {}
 
     /**
      * Launch a new rover on a planet.
