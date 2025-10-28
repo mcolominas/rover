@@ -19,7 +19,7 @@ class ObstacleGenerator implements ObstacleGeneratorInterface
      * @param int $max
      * @return void
      * @throws ObstacleLimitExceededException
-     * @throws ObstacleLimitExceededException
+     * @throws ObstacleAttemptException
      * @throws InvalidArgumentException
      */
     public function generate(Planet $planet, int $min, int $max): void

@@ -5,6 +5,7 @@ namespace App\Contracts;
 use App\Exceptions\ObstacleAttemptException;
 use App\Exceptions\ObstacleLimitExceededException;
 use App\Models\Planet;
+use InvalidArgumentException;
 
 interface ObstacleGeneratorInterface
 {
@@ -16,6 +17,7 @@ interface ObstacleGeneratorInterface
      * @param int $max
      * @throws ObstacleLimitExceededException
      * @throws ObstacleAttemptException
+     * @throws InvalidArgumentException
      * @return void
      */
     public function generate(Planet $planet, int $min, int $max): void;
