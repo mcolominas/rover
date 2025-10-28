@@ -4,6 +4,17 @@ This README provides an overview of how to set up and run the entire Rover proje
 The project consists of two main parts: **Backend (Laravel API)** and **Frontend (Vue.js 3)**.  
 Each folder contains a more detailed README with specific installation and configuration instructions.
 
+Additionally, the project is documented in **Mars Rover Mission.pdf**, which explains the project details and objectives.
+
+---
+
+## 🛠️ Frameworks Used
+
+This project is built using the frameworks specified in the job offer:
+
+- **Backend:** Laravel (PHP)
+- **Frontend:** Vue.js
+
 ---
 
 ## 1. **Clone the Repository**
@@ -54,3 +65,4 @@ npm run preview
 - Make sure **both backend and frontend are running** at the same time.  
 - The frontend communicates with the backend API at the URLs specified in the README.  
 - Always follow the individual READMEs for each project for installation, configuration, and advanced setup instructions.
+- For a detailed description of the project and objectives, refer to Mars Rover Mission.pdf.
